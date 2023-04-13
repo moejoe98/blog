@@ -11,6 +11,6 @@ class UpdateCommentAction
     {
         CommentsService::checkIfCommentForUser($data['commentId'], $userId);
         $data['status'] = 'PENDING';
-        return CommentsService::updateComment($data);
+        return CommentsService::updateComment($data['commentId'], $data);
     }
 }

@@ -31,9 +31,9 @@ class CommentsService {
     }
 
 
-    public static function updateComment($data)
+    public static function updateComment($commentId, $data)
     {
-        return Comment::updateOrCreate(['id' => $data['commentId']],$data);
+        return Comment::updateOrCreate(['id' => $commentId],['content' => $data['content']]);
     }
 
     public static function deleteCommentById($postId)

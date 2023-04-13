@@ -24,7 +24,10 @@ Route::group(["middleware" => ["api.auth"]], function(){
     Route::get('/post/{postId}', [PostController::class , 'getPostById']);
     Route::delete('/post/{postId}', [PostController::class , 'deletePostById']);
     Route::post('/post/tag/add', [PostController::class , 'addTagToPost']);
-    Route::delete('post/tag/remove/{tagId}', [PostController::class , 'removeTag']);
+    Route::delete('/post/tag/remove/{tagId}', [PostController::class , 'removeTag']);
+    Route::post('/post/search/tag', [PostController::class , 'getPostByTag']);
+
+
 
     Route::post('/comment/create', [CommentController::class , 'create']);
     Route::post('/comment/update', [CommentController::class , 'updateComment']);
@@ -34,13 +37,19 @@ Route::group(["middleware" => ["api.auth"]], function(){
     Route::post('/tag/search', [TagController::class , 'searchByName']);
 
     Route::middleware('api.admin')->group(function(){
-        Route::get('users/posts/count', [DashboardController::class , 'getNumPostsEachUser']);
-        Route::get('users/comments/count', [DashboardController::class , 'getNumCommentsEachUser']);
-        Route::get('users/comments/topFive', [DashboardController::class , 'top5CommentedUsers']);
-        Route::get('posts/topFiveCommented', [DashboardController::class , 'top5commentedPosts']);
-        Route::get('tags/commonTags', [DashboardController::class , 'commonTags']);
-        Route::get('posts/mostTags', [DashboardController::class , 'postsWithMostTags']);
-        Route::get('users/comments/zero', [DashboardController::class , 'userZeroComments']);
+        Route::get('/users/posts/count', [DashboardController::class , 'getNumPostsEachUser']);
+        Route::get('/users/comments/count', [DashboardController::class , 'getNumCommentsEachUser']);
+        Route::get('/users/comments/topFive', [DashboardController::class , 'top5CommentedUsers']);
+        Route::get('/posts/topFiveCommented', [DashboardController::class , 'top5commentedPosts']);
+        Route::get('/tags/commonTags', [DashboardController::class , 'commonTags']);
+        Route::get('/posts/mostTags', [DashboardController::class , 'postsWithMostTags']);
+        Route::get('/users/comments/zero', [DashboardController::class , 'userZeroComments']);
+
+        Route::get('/users/comments/zero', [DashboardController::class , 'userZeroComments']);
+        Route::post('/users/comment/approve', [DashboardController::class , 'approveComment']);
+        Route::delete('/users/comment/delete/{commentId}', [DashboardController::class , 'deleteComment']);
+        Route::post('/users/comment/update', [DashboardController::class , 'updateComment']);
+
     });
 
 

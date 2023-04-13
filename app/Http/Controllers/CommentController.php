@@ -77,6 +77,7 @@ class CommentController extends Controller
         {
             return $this->errorResponse(422, ('Not Found'));
         }
+
         catch (\Exception $e) {
             return $this->errorResponse(500, $e->getMessage());
         }

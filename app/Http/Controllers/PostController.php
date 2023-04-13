@@ -12,6 +12,7 @@ use App\Http\Actions\Posts\UpdatePostAction;
 use App\Exceptions\UnauthorizedException;
 use App\Http\Requests\Posts\AddTagToPostRequest;
 use App\Http\Requests\Posts\CreatePostRequest;
+use App\Http\Requests\Posts\GetPostByTagRequest;
 use App\Http\Requests\Posts\RemoveTagToPostRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Services\Posts\PostsService;
@@ -59,6 +60,23 @@ class PostController extends Controller
 
         try {
             $data = PostsService::getPostById($postId);
+            return $this->successResponse(true, 'Success', $data);
+        }
+        catch (NotFound $exception)
+        {
+            return $this->errorResponse(422, ('Not Found'));
+        }
+        catch (\Exception $e) {
+            return $this->errorResponse(500, $e->getMessage());
+        }
+
+    }
+
+    public function getPostByTag(GetPostByTagRequest $request)
+    {
+
+        try {
+            $data = PostsService::getPostByTag($request->tag);
             return $this->successResponse(true, 'Success', $data);
         }
         catch (NotFound $exception)

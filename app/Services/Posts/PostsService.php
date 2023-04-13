@@ -34,6 +34,27 @@ class PostsService {
         else return $data;
     }
 
+    public static function getPostByTag($tag)
+    {
+        $data = Post::with('user')
+            ->with(['comments' => function ($query) {
+                $query->where('status', 'APPROVED');
+            }])
+
+            ->whereHas('tags', function ($query) use ($tag) {
+                $query->with('tag', function ($query) use ($tag) {
+                    $query->where('tag', 'like', "%$tag%");
+                });
+            })->with('tags', function ($query){
+                $query->with('tag');
+            })
+            ->get();
+        if(!$data){
+            throw new NotFound();
+        }
+        else return $data;
+    }
+
 
     public static function updatePost($data)
     {
