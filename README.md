@@ -1,5 +1,8 @@
 # Blog Platform
-A short description of the project.
+The blog should allow users to create accounts, write blog posts, and comment on other users' posts. It should also have the following advanced functionality:
+●	A tagging system that allows users to add tags to their blog posts and filter posts by tags.
+●	A moderation system that allows blog administrators to approve, edit, or delete user comments.
+
 
 # Installation
 Clone the repository: git clone https://github.com/moejoe98/blog.git
